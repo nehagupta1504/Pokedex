@@ -29,7 +29,7 @@ function getPokemonImageFromData(data) {
   const frontDefault =
     data["sprites"]["other"]["official-artwork"]["front_default"];
   console.log(frontDefault);
-  return frontDefault;
+  return frontDefault ? frontDefault : defaultImage;
 }
 function Pokemon(props) {
   const { data } = props;
@@ -68,17 +68,20 @@ function PokemonPage() {
   const [pokemonData, setpokemonData] = useState("");
   const [isError, setIsError] = useState(false);
   const { name } = params;
-  useEffect(function () {
-    PokeApi.getPokemonByName(name)
-      .then((data) => {
-        setIsLoading(false);
-        setpokemonData(data);
-      })
-      .catch((er) => {
-        setIsLoading(false);
-        setIsError(true);
-      });
-  }, []);
+  useEffect(
+    function () {
+      PokeApi.getPokemonByName(name)
+        .then((data) => {
+          setIsLoading(false);
+          setpokemonData(data);
+        })
+        .catch((er) => {
+          setIsLoading(false);
+          setIsError(true);
+        });
+    },
+    [name]
+  );
 
   if (isLoading) {
     return (

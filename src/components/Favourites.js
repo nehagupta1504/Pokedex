@@ -22,7 +22,7 @@ function RenderFavourites(props) {
 }
 
 const Favourites = () => {
-  const [favourites, setfavourites] = useState(function () {
+  const [favourites] = useState(function () {
     const val = localStorage.getItem("pokemons");
     if (val) {
       return JSON.parse(val);
