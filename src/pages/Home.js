@@ -5,21 +5,12 @@ import { pokemons } from "../pokemonList";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { PokemonGallery } from "../components/PokemonGallery";
 import { Link } from "react-router-dom";
+import Favourites from "../components/Favourites";
+
 const Home = () => {
   const [selection, setSelection] = useState(null);
   return (
     <>
-      <div
-        className="App"
-        style={{
-          display: "flex",
-          backgroundColor: "lightgray",
-          justifyContent: "space-around",
-        }}
-      >
-        <h1>My Pokedex</h1>
-      </div>
-
       <div style={{ marginTop: "20px", display: "flex" }}>
         <Autocomplete
           id="combo-box-demo"
@@ -37,14 +28,27 @@ const Home = () => {
             console.log(currentSelection);
           }}
         />
-        <Link to={selection ? "pokemon/" + selection.name : "/"}>
-          Go To Pokémon
-        </Link>
-        {/* <Button variant="contained" color="primary" style={{flexGrow:0.4}}></Button> */}
+        <Link
+          to={selection ? "pokemon/" + selection.name : "/"}
+          component={function (props) {
+            return (
+              <Button
+                variant="contained"
+                color="primary"
+                style={{ flexGrow: 0.2, margin: "0 0  0 15px" }}
+                {...props} //TO pass all the props of link to button
+              >
+                Go To Pokémon
+              </Button>
+            );
+          }}
+        ></Link>
       </div>
       <div>
         <h1>Pokemon Gallery</h1>
         <PokemonGallery />
+
+        <Favourites />
       </div>
     </>
   );

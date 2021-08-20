@@ -5,7 +5,7 @@ import { PokeApi } from "./api/pokeApi";
 import { useEffect, useState } from "react";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { lightBlue } from "@material-ui/core/colors";
-
+import { Header } from "./components/Header";
 function CenteredElement(props) {
   const { children } = props;
   return (
@@ -39,16 +39,27 @@ function Pokemon(props) {
 
   console.log(data);
   return (
-    <div style={{ width: "100%", backgroundColor: "lightBlue" }}>
-      {data.name}
-      {data.height}
-      <img
-        src={getPokemonImageFromData(data)}
-        width={300}
-        height={300}
-        alt="Pokeball"
-      />
-    </div>
+    <>
+      <div
+        style={{
+          width: "100%",
+          backgroundColor: "lightBlue",
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        <img
+          src={getPokemonImageFromData(data)}
+          width={300}
+          height={300}
+          alt="Pokeball"
+        />
+      </div>
+      <div>
+        {data.name}
+        {data.height}
+      </div>
+    </>
   );
 }
 function PokemonPage() {
@@ -95,6 +106,7 @@ function App() {
   return (
     <>
       <Container maxWidth="sm">
+        <Header />
         <Switch>
           <Route exact path="/">
             <Home />
